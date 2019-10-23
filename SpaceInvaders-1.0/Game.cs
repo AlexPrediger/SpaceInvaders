@@ -9,9 +9,9 @@ namespace SpaceInvaders_1._0
 {
     class Game
     {
-        public Rectangle boundaries;
-        public Stars stars;
-        public Random random;
+        private Rectangle boundaries;
+        private Stars stars;
+        private Random random;
 
         public Game(Rectangle boundaries)
         {
