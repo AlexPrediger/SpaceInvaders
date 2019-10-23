@@ -23,6 +23,7 @@ namespace SpaceInvaders_1._0
             }
         }
 
+        // Method to generate a Star with random coordinates at the boundaries
         public Star GenerateRandomStar (Rectangle boundaries)
         {
             int randomWidth = random.Next(boundaries.Left, boundaries.Right);
@@ -37,21 +38,31 @@ namespace SpaceInvaders_1._0
             return newStar;
         }
 
-        public void Draw(Graphics g, Rectangle boundaries)
+        // Method to draw all stars into graphics
+        public void Draw(Graphics graphics, Rectangle boundaries)
         {
 
-            g.FillRectangle(Brushes.Black, boundaries);
+            graphics.FillRectangle(Brushes.Black, boundaries);
 
             foreach (Star star in starList)
             {
-                g.DrawRectangle(star.pen, star.point.X, star.point.Y, 5f, 5f);
+                graphics.DrawRectangle(star.pen, star.point.X, star.point.Y, 5f, 5f);
             }
-
         }
 
+        // Method to delete the first five stars and create five new
         public void Twinkle(Rectangle boundaries)
         {
+            if (starList.Count < 5)
+            {
+                return;
+            }
 
+            for (int i = 0; i < 5; i++)
+            {
+                starList.RemoveAt(0);
+                starList.Add(GenerateRandomStar(boundaries));
+            }
         }
 
     }

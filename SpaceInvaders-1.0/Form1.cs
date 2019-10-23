@@ -22,14 +22,18 @@ namespace SpaceInvaders_1._0
 
             this.StartPosition = FormStartPosition.CenterScreen;
 
+            // Use DoubleBuffered to stop flickering at Refresh method
+            this.DoubleBuffered = true;
+
             // Declare new game, setting game boundaries
             game = new Game(this.DisplayRectangle);
 
-            // Start the animation timer straight away - animate stars
+            // Start the animation timer straight away - animate stars and sets refreshing interval
             AnimationTimer.Interval = 330;
             AnimationTimer.Start();
         }
 
+        // Eventhandler for Timerevent
         private void AnimationTimer_Tick(object sender, EventArgs e)
         {
             game.Twinkle();
@@ -38,6 +42,7 @@ namespace SpaceInvaders_1._0
             this.Refresh();
         }
 
+        // Eventhandler for Paintevent
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             Bitmap bitmap = new Bitmap(this.Width, this.Height);
