@@ -43,7 +43,7 @@ namespace SpaceInvaders_1._0
             Bitmap bitmap = new Bitmap(this.Width, this.Height);
             Graphics graphics = Graphics.FromImage(bitmap);
 
-            game.Draw(g, gameOver);
+            game.Draw(graphics, gameOver);
 
             // Copy bitmap image onto Form1 graphics
             e.Graphics.DrawImageUnscaled(bitmap, 0, 0);

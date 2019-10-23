@@ -19,7 +19,7 @@ namespace SpaceInvaders_1._0
             stars = new Stars(boundaries);
         }
 
-        public void Draw(Graphics g)
+        public void Draw(Graphics g, Boolean gameOver)
         {
             stars.Draw(g, boundaries);
         }
