@@ -9,16 +9,25 @@ namespace SpaceInvaders_1._0
 {
     class Star
     {
-
-        // TODO: private mit get() und set()
-
-        public Point point;
-        public Pen pen;
+        private Point point;
+        private Pen pen;
 
         public Star(Point point, Pen pen)
         {
             this.point = point;
             this.pen = pen;
+        }
+
+        public Point Point
+        {
+            get { return point; }
+            set { point = value; }
+        }
+
+        public Pen Pen
+        {
+            get { return pen; }
+            set { pen = value; }
         }
     }
 }

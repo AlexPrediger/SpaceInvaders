@@ -9,10 +9,9 @@ namespace SpaceInvaders_1._0
 {
     class Stars
     {
-
-        public List<Star> starList = new List<Star>();
-        public Pen[] starColors = {Pens.Blue, Pens.White, Pens.Yellow, Pens.Red};
-        public Random random = new Random();
+        private List<Star> starList = new List<Star>();
+        private Pen[] starColors = {Pens.Blue, Pens.White, Pens.Yellow, Pens.Red};
+        private Random random = new Random();
 
         public Stars(Rectangle boundaries)
         {
@@ -46,21 +45,24 @@ namespace SpaceInvaders_1._0
 
             foreach (Star star in starList)
             {
-                graphics.DrawRectangle(star.pen, star.point.X, star.point.Y, 5f, 5f);
+                graphics.DrawRectangle(star.Pen, star.Point.X, star.Point.Y, 5f, 5f);
             }
         }
 
-        // Method to delete the first five stars and create five new
+        // Method to delete five stars and create five new
         public void Twinkle(Rectangle boundaries)
         {
-            if (starList.Count < 5)
+            if (starList.Count < 1)
             {
                 return;
             }
 
             for (int i = 0; i < 5; i++)
             {
-                starList.RemoveAt(0);
+                // for removing the five oldest stars use 
+                // starList.RemoveAt(0);
+                // for removing five random stars use 
+                starList.RemoveAt(random.Next(starList.Count));
                 starList.Add(GenerateRandomStar(boundaries));
             }
         }
