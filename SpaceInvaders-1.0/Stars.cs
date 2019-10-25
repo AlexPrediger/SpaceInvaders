@@ -52,6 +52,7 @@ namespace SpaceInvaders_1._0
         // Method to delete five stars and create five new
         public void Twinkle(Rectangle boundaries)
         {
+            // if there is no List return 
             if (starList.Count < 1)
             {
                 return;
