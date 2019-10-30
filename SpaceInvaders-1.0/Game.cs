@@ -53,7 +53,11 @@ namespace SpaceInvaders_1._0
             if ((playerShip.Location.X < boundaries.Left + Parameters.playerShipIncremeant 
                 && direction == Parameters.Direction.Left)
                 || (playerShip.Location.X >= boundaries.Right - Parameters.playerShipIncremeant - playerShip.Image.Width
-                && direction == Parameters.Direction.Right))
+                && direction == Parameters.Direction.Right)
+                || (playerShip.Location.Y < boundaries.Top + Parameters.playerShipIncremeant
+                && direction == Parameters.Direction.Up)
+                || (playerShip.Location.Y >= boundaries.Bottom - Parameters.playerShipIncremeant - playerShip.Image.Height
+                && direction == Parameters.Direction.Down))
             {
                 return;
             }

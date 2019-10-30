@@ -35,6 +35,12 @@ namespace SpaceInvaders_1._0
             } else if (direction == Parameters.Direction.Right)
             {
                 location.X += Parameters.playerShipIncremeant;
+            } else if (direction == Parameters.Direction.Up)
+            {
+                location.Y -= Parameters.playerShipIncremeant;
+            } else if (direction == Parameters.Direction.Down)
+            {
+                location.Y += Parameters.playerShipIncremeant;
             }
         }
 

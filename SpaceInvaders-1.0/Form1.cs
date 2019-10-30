@@ -75,9 +75,17 @@ namespace SpaceInvaders_1._0
                 {
                     switch (keysPressed[0])
                     {
-                        case Keys.Left:game.MovePlayer(Parameters.Direction.Left);
+                        case Keys.Left:
+                            game.MovePlayer(Parameters.Direction.Left);
                             break;
-                        case Keys.Right:game.MovePlayer(Parameters.Direction.Right);
+                        case Keys.Right:
+                            game.MovePlayer(Parameters.Direction.Right);
+                            break;
+                        case Keys.Up:
+                            game.MovePlayer(Parameters.Direction.Up);
+                            break;
+                        case Keys.Down:
+                            game.MovePlayer(Parameters.Direction.Down);
                             break;
                         case Keys.Space:
                             // game.Fire(); 
