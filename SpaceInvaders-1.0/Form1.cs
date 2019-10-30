@@ -30,7 +30,7 @@ namespace SpaceInvaders_1._0
             game = new Game(this.DisplayRectangle);
 
             // Start the animation timer straight away - animate stars and sets refreshing interval
-            AnimationTimer.Interval = 330;
+            AnimationTimer.Interval = Parameters.animationTimerInterval;
             AnimationTimer.Start();
         }
 

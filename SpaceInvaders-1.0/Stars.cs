@@ -15,7 +15,7 @@ namespace SpaceInvaders_1._0
 
         public Stars(Rectangle boundaries)
         {
-            for (int i = 0; i < 300; i++)
+            for (int i = 0; i < Parameters.starsInSky; i++)
             {
                 Star star = GenerateRandomStar(boundaries);
                 starList.Add(star);
