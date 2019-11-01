@@ -13,6 +13,8 @@ namespace SpaceInvaders_1._0
         private Pen[] starColors = {Pens.Blue, Pens.White, Pens.Yellow, Pens.Red};
         private Random random = new Random();
 
+
+        // method to create a list of stars 
         public Stars(Rectangle boundaries)
         {
             for (int i = 0; i < Parameters.starsInSky; i++)
@@ -22,7 +24,7 @@ namespace SpaceInvaders_1._0
             }
         }
 
-        // Method to generate a Star with random coordinates at the boundaries
+        // Method to generate a Star with random coordinates into the boundaries
         public Star GenerateRandomStar (Rectangle boundaries)
         {
             int randomWidth = random.Next(boundaries.Left, boundaries.Right);

@@ -12,7 +12,7 @@ namespace SpaceInvaders_1._0
 {
     public partial class Form1 : Form
     {
-
+        // initialize variables
         private Game game;
         private List<Keys> keysPressed = new List<Keys>();
         private bool gameOver = true;
@@ -34,6 +34,7 @@ namespace SpaceInvaders_1._0
             AnimationTimer.Start();
         }
 
+        // method to start the game through starting gametime and method StartGame of class Game
         private void StartGame()
         {
             // Start game timer
@@ -46,7 +47,7 @@ namespace SpaceInvaders_1._0
 
         }
 
-        // Eventhandler for Timerevent
+        // Eventhandler for animation Timerevent
         private void AnimationTimer_Tick(object sender, EventArgs e)
         {
             game.Twinkle();
@@ -67,12 +68,14 @@ namespace SpaceInvaders_1._0
             e.Graphics.DrawImageUnscaled(bitmap, 0, 0);
         }
 
+        // Eventhandler for game Timerevent
         private void GameTimer_Tick(object sender, EventArgs e)
         {
             if (!gameOver)
             {
                 if (keysPressed.Count >= 1)
                 {
+                    // switch case for checking which button is pressed and start Game.MovePlayer method to move playership
                     switch (keysPressed[0])
                     {
                         case Keys.Left:
@@ -100,7 +103,7 @@ namespace SpaceInvaders_1._0
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            //Handel scenario if user wants to quit 
+            // Handle scenario if user wants to quit 
             if (e.KeyCode == Keys.Q)
                 Application.Exit();
 

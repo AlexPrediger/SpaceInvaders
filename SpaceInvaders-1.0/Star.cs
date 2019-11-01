@@ -9,15 +9,18 @@ namespace SpaceInvaders_1._0
 {
     class Star
     {
+        // initialize variables of class Star
         private Point point;
         private Pen pen;
 
+        // constructor of class
         public Star(Point point, Pen pen)
         {
             this.point = point;
             this.pen = pen;
         }
 
+        // get and set method of variables 
         public Point Point
         {
             get { return point; }

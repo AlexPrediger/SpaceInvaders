@@ -9,12 +9,13 @@ namespace SpaceInvaders_1._0
 {
     class Game
     {
+        // initialize variables in class
         private Rectangle boundaries;
         private Stars stars;
         private PlayerShip playerShip;
         private Random random;
 
-
+        // constructor of class Game
         public Game(Rectangle boundaries)
         {
             this.boundaries = boundaries;
@@ -22,11 +23,13 @@ namespace SpaceInvaders_1._0
             random = new Random();
         }
 
+        // method to start game
         public void StartGame()
         {
             playerShip = new PlayerShip(new Point(boundaries.Width/2, boundaries.Height));
         }
 
+        // method to draw stars and playership
         public void Draw(Graphics graphics, Boolean gameOver)
         {
             stars.Draw(graphics, boundaries);
@@ -39,17 +42,16 @@ namespace SpaceInvaders_1._0
             playerShip.Draw(graphics);
         }
 
+        // method to use stars.Twinkle method
         public void Twinkle()
         {
             stars.Twinkle(this.boundaries);
         }
 
+        // method to move playership into positive and negative x and y direction 
         public void MovePlayer(Parameters.Direction direction)
         {
-            // Move, first checking that the ship does not go outside the  
-            // boundaries with the move 
-            // Implement this method on your own.
-
+            // if conditions to check if ship is out of boundaries
             if ((playerShip.Location.X < boundaries.Left + Parameters.playerShipIncremeant 
                 && direction == Parameters.Direction.Left)
                 || (playerShip.Location.X >= boundaries.Right - Parameters.playerShipIncremeant - playerShip.Image.Width
