@@ -21,12 +21,13 @@ namespace SpaceInvaders_1._0
             this.location = location;
         }
 
-        public void Draw(Graphics g)
+        // method to draw playership into graphics
+        public void Draw(Graphics graphics)
         {
-            g.DrawImage(this.image, this.location);
+            graphics.DrawImage(this.image, this.location);
         }
 
-        // Study the use of the Enum Direction in the next method 
+        // method to move playership into positive and negative x and y direction
         public void Move(Parameters.Direction direction)
         {
             if (direction == Parameters.Direction.Left)
@@ -44,6 +45,7 @@ namespace SpaceInvaders_1._0
             }
         }
 
+        // set and get methods for variables of class
         public Point Location
         {
             get { return location; }
