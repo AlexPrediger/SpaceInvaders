@@ -46,6 +46,11 @@ namespace SpaceInvaders_1._0
         }
 
         // set and get methods for variables of class
+
+        public Point CenteredLocation
+        {
+            get { return new Point(location.X + image.Width / 2, location.Y); }
+        }
         public Point Location
         {
             get { return location; }

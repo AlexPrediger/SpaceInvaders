@@ -15,6 +15,8 @@ namespace SpaceInvaders_1._0
         private PlayerShip playerShip;
         private Random random;
 
+        private List<Shot> playerShots = new List<Shot>();
+
         // constructor of class Game
         public Game(Rectangle boundaries)
         {
@@ -37,6 +39,11 @@ namespace SpaceInvaders_1._0
             if (gameOver)
             {
                 return;
+            }
+
+            foreach (Shot shot in playerShots)
+            {
+                shot.Draw(graphics);
             }
 
             playerShip.Draw(graphics);
@@ -65,6 +72,32 @@ namespace SpaceInvaders_1._0
             }
 
             playerShip.Move(direction);
+        }
+
+        public void CreateOneShot()
+        {
+            if (playerShots.Count > Parameters.maxShots)
+            {
+                return;
+            }
+
+            Shot playerShot = new Shot(boundaries, Parameters.Direction.Up, playerShip.CenteredLocation);
+            playerShots.Add(playerShot);
+        }
+
+        public void FireShots()
+        {
+            List<Shot> newPlayerShots = new List<Shot>();
+            foreach (Shot shot in playerShots)
+            {
+                shot.Move();
+                if (shot.RemoveShotFlag == false)
+                {
+                    newPlayerShots.Add(shot);
+                }
+            }
+
+            playerShots = newPlayerShots;
         }
     }
 }

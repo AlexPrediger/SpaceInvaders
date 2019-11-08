@@ -16,6 +16,8 @@ namespace SpaceInvaders_1._0
         private Game game;
         private List<Keys> keysPressed = new List<Keys>();
         private bool gameOver = true;
+        private Bitmap bitmap;
+        private Graphics graphics;
 
         public Form1()
         {
@@ -30,6 +32,8 @@ namespace SpaceInvaders_1._0
             game = new Game(this.DisplayRectangle);
 
             // Start the animation timer straight away - animate stars and sets refreshing interval
+            bitmap = new Bitmap(this.Width, this.Height);
+            graphics = Graphics.FromImage(bitmap);
             AnimationTimer.Interval = Parameters.animationTimerInterval;
             AnimationTimer.Start();
         }
@@ -59,9 +63,6 @@ namespace SpaceInvaders_1._0
         // Eventhandler for Paintevent
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            Bitmap bitmap = new Bitmap(this.Width, this.Height);
-            Graphics graphics = Graphics.FromImage(bitmap);
-
             game.Draw(graphics, gameOver);
 
             // Copy bitmap image onto Form1 graphics
@@ -71,31 +72,35 @@ namespace SpaceInvaders_1._0
         // Eventhandler for game Timerevent
         private void GameTimer_Tick(object sender, EventArgs e)
         {
-            if (!gameOver)
+            if (gameOver)
             {
-                if (keysPressed.Count >= 1)
+                return;
+            }
+
+            if (keysPressed.Count >= 1)
+            {
+                // switch case for checking which button is pressed and start Game.MovePlayer method to move playership
+                switch (keysPressed[0])
                 {
-                    // switch case for checking which button is pressed and start Game.MovePlayer method to move playership
-                    switch (keysPressed[0])
-                    {
-                        case Keys.Left:
-                            game.MovePlayer(Parameters.Direction.Left);
-                            break;
-                        case Keys.Right:
-                            game.MovePlayer(Parameters.Direction.Right);
-                            break;
-                        case Keys.Up:
-                            game.MovePlayer(Parameters.Direction.Up);
-                            break;
-                        case Keys.Down:
-                            game.MovePlayer(Parameters.Direction.Down);
-                            break;
-                        case Keys.Space:
-                            // game.Fire(); 
-                            break;
-                    }
+                    case Keys.Left:
+                        game.MovePlayer(Parameters.Direction.Left);
+                        break;
+                    case Keys.Right:
+                        game.MovePlayer(Parameters.Direction.Right);
+                        break;
+                    case Keys.Up:
+                        game.MovePlayer(Parameters.Direction.Up);
+                        break;
+                    case Keys.Down:
+                        game.MovePlayer(Parameters.Direction.Down);
+                        break;
+                    case Keys.Space:
+                        game.CreateOneShot();
+                        break;
                 }
             }
+
+            game.FireShots();
 
             //Redraw the form
             this.Refresh();

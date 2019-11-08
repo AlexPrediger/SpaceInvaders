@@ -25,5 +25,12 @@ namespace SpaceInvaders_1._0
 
         //PlayerShip constants
         public const int   playerShipIncremeant = 4;
+
+        //Shot constants 
+        public const int   maxShots = 5;
+        public const int   shotMoveInterval = 8;
+        public const int   shotWidth = 1;
+        public const int   shotHeight = 3;
+        public const int   milliSecsPerShot = 4;
     }
 }

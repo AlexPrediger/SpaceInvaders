@@ -25,7 +25,7 @@ namespace SpaceInvaders_1._0
         }
 
         // Method to generate a Star with random coordinates into the boundaries
-        public Star GenerateRandomStar (Rectangle boundaries)
+        public Star GenerateRandomStar(Rectangle boundaries)
         {
             int randomWidth = random.Next(boundaries.Left, boundaries.Right);
             int randomHeight = random.Next(boundaries.Top, boundaries.Bottom);
