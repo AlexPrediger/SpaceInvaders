@@ -31,6 +31,6 @@ namespace SpaceInvaders_1._0
         public const int   shotMoveInterval = 8;
         public const int   shotWidth = 1;
         public const int   shotHeight = 3;
-        public const int   milliSecsPerShot = 4;
+        public const int   milliSecondsPerShot = 500;
     }
 }
