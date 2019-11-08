@@ -16,7 +16,7 @@ namespace SpaceInvaders_1._0
         private Game game;
         private List<Keys> keysPressed = new List<Keys>();
         private bool gameOver = true;
-        private bool nextShot = true;
+        private bool nextShot = false;
         private Bitmap bitmap;
         private Graphics graphics;
 
@@ -106,6 +106,8 @@ namespace SpaceInvaders_1._0
                         {
                             game.CreateOneShot();
                             nextShot = false;
+                            ShotDelay.Stop();
+                            ShotDelay.Start();
                         }
 
                         break;
