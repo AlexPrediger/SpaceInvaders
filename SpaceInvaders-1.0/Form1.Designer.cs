@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.AnimationTimer = new System.Windows.Forms.Timer(this.components);
             this.GameTimer = new System.Windows.Forms.Timer(this.components);
-            this.ShotDelay = new System.Windows.Forms.Timer(this.components);
+            this.ShotDelayTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // AnimationTimer
@@ -42,9 +42,9 @@
             // 
             this.GameTimer.Tick += new System.EventHandler(this.GameTimer_Tick);
             // 
-            // ShotDelay
+            // ShotDelayTimer
             // 
-            this.ShotDelay.Tick += new System.EventHandler(this.ShotDelay_Tick);
+            this.ShotDelayTimer.Tick += new System.EventHandler(this.ShotDelayTimer_Tick);
             // 
             // Form1
             // 
@@ -64,7 +64,7 @@
 
         private System.Windows.Forms.Timer AnimationTimer;
         private System.Windows.Forms.Timer GameTimer;
-        private System.Windows.Forms.Timer ShotDelay;
+        private System.Windows.Forms.Timer ShotDelayTimer;
     }
 }
 

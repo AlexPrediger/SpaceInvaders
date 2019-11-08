@@ -47,8 +47,8 @@ namespace SpaceInvaders_1._0
             GameTimer.Start();
 
             // Start timer for delay between shots
-            ShotDelay.Interval = Parameters.milliSecondsPerShot;
-            ShotDelay.Start();
+            ShotDelayTimer.Interval = Parameters.milliSecondsPerShot;
+            ShotDelayTimer.Start();
 
             // Begin the game
             gameOver = false;
@@ -106,8 +106,8 @@ namespace SpaceInvaders_1._0
                         {
                             game.CreateOneShot();
                             nextShot = false;
-                            ShotDelay.Stop();
-                            ShotDelay.Start();
+                            ShotDelayTimer.Stop();
+                            ShotDelayTimer.Start();
                         }
 
                         break;
@@ -120,7 +120,7 @@ namespace SpaceInvaders_1._0
             this.Refresh();
         }
 
-        private void ShotDelay_Tick(object sender, EventArgs e)
+        private void ShotDelayTimer_Tick(object sender, EventArgs e)
         {
             // if Parameters.milliSecondsPerShot time in ms has passed set bool true
             nextShot = true;
