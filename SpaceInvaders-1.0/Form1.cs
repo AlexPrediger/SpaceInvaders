@@ -16,6 +16,7 @@ namespace SpaceInvaders_1._0
         private Game game;
         private List<Keys> keysPressed = new List<Keys>();
         private bool gameOver = true;
+        private bool nextShot = true;
         private Bitmap bitmap;
         private Graphics graphics;
 
@@ -44,6 +45,10 @@ namespace SpaceInvaders_1._0
             // Start game timer
             GameTimer.Interval = Parameters.gameTimerInterval;
             GameTimer.Start();
+
+            // Start timer for delay between shots
+            ShotDelay.Interval = Parameters.milliSecondsPerShot;
+            ShotDelay.Start();
 
             // Begin the game
             gameOver = false;
@@ -95,7 +100,14 @@ namespace SpaceInvaders_1._0
                         game.MovePlayer(Parameters.Direction.Down);
                         break;
                     case Keys.Space:
-                        game.CreateOneShot();
+
+                        // if nextShot is true create another one
+                        if (nextShot)
+                        {
+                            game.CreateOneShot();
+                            nextShot = false;
+                        }
+
                         break;
                 }
             }
@@ -104,6 +116,12 @@ namespace SpaceInvaders_1._0
 
             //Redraw the form
             this.Refresh();
+        }
+
+        private void ShotDelay_Tick(object sender, EventArgs e)
+        {
+            // if Parameters.milliSecondsPerShot time in ms has passed set bool true
+            nextShot = true;
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
