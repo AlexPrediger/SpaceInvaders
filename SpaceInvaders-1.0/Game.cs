@@ -13,6 +13,7 @@ namespace SpaceInvaders_1._0
         private Rectangle boundaries;
         private Stars stars;
         private PlayerShip playerShip;
+        private List<Invader> invaders = new List<Invader>();
         private Random random;
 
         private List<Shot> playerShots = new List<Shot>();
@@ -29,6 +30,8 @@ namespace SpaceInvaders_1._0
         public void StartGame()
         {
             playerShip = new PlayerShip(new Point(boundaries.Width/2, boundaries.Height));
+            
+            
         }
 
         // method to draw stars and playership
@@ -47,6 +50,11 @@ namespace SpaceInvaders_1._0
             }
 
             playerShip.Draw(graphics);
+
+            foreach (Invader invader in invaders)
+            {
+                invader.Draw(graphics);
+            }
         }
 
         // method to use stars.Twinkle method

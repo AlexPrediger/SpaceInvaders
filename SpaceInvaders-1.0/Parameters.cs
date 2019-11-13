@@ -15,6 +15,14 @@ namespace SpaceInvaders_1._0
             Up = 3,
             Down = 4,
         };
+        public enum InvaderTypes
+        {
+            bug = 0,
+            saucer = 1,
+            satellite = 2,
+            spaceship = 3,
+            star = 4
+        };
 
         //Form1 Constants
         public const int   animationTimerInterval = 330;
@@ -32,5 +40,22 @@ namespace SpaceInvaders_1._0
         public const int   shotWidth = 1;
         public const int   shotHeight = 3;
         public const int   milliSecondsPerShot = 500;
+
+        //Invader position/movment related constants 
+        public const int invadersPerRow = 6;
+        public const int initialLeft = 70;
+        public const int invaderHorizSpacing = 90;
+        public const int invaderVertSpacing = 60;
+        public const int invaderHorzInc = 3;
+        public const int invaderVertInc = 25;
+        public const int invaderEdgeOfScreen = 25;
+        public const int invaderImageWidths = 50;
+
+        //Invader scores
+        public const int bugScore = 25;
+        public const int saucerScore = 20;
+        public const int satelliteScore = 15;
+        public const int spaceshipScore = 10;
+        public const int starScore = 5;
     }
 }
