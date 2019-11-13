@@ -53,7 +53,6 @@ namespace SpaceInvaders_1._0
             // Begin the game
             gameOver = false;
             game.StartGame();
-
         }
 
         // Eventhandler for animation Timerevent

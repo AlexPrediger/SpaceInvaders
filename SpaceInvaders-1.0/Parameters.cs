@@ -43,11 +43,12 @@ namespace SpaceInvaders_1._0
 
         //Invader position/movment related constants 
         public const int invadersPerRow = 6;
-        public const int initialLeft = 70;
-        public const int invaderHorizSpacing = 90;
-        public const int invaderVertSpacing = 60;
-        public const int invaderHorzInc = 3;
-        public const int invaderVertInc = 25;
+        public const int invaderInitialLeft = 70;
+        public const int invaderInitialTop = 20;
+        public const int invaderHorizontalSpacing = 90;
+        public const int invaderVerticalSpacing = 60;
+        public const int invaderHorziontalInc = 3;
+        public const int invaderVerticalInc = 25;
         public const int invaderEdgeOfScreen = 25;
         public const int invaderImageWidths = 50;
 

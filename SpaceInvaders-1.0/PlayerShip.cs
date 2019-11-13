@@ -9,8 +9,6 @@ namespace SpaceInvaders_1._0
 {
     class PlayerShip : Ship
     {
-        private Bitmap image;
-
         //Declare the properties for location and image here
         public PlayerShip(Point location) :base(location)
         {
