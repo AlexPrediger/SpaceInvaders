@@ -19,6 +19,11 @@ namespace SpaceInvaders_1._0
         private bool nextShot = true;
         private Bitmap bitmap;
         private Graphics graphics;
+        private bool keyUp = false;
+        private bool keyDown = false;
+        private bool keyLeft = false;
+        private bool keyRight = false;
+        private bool keySpace = false;
 
         public Form1()
         {
@@ -73,6 +78,18 @@ namespace SpaceInvaders_1._0
             e.Graphics.DrawImageUnscaled(bitmap, 0, 0);
         }
 
+        private void createShot()
+        {
+            // if nextShot is true create another one
+            if (nextShot)
+            {
+                game.CreateOneShot();
+                nextShot = false;
+                ShotDelayTimer.Stop();
+                ShotDelayTimer.Start();
+            }
+        }
+
         // Eventhandler for game Timerevent
         private void GameTimer_Tick(object sender, EventArgs e)
         {
@@ -81,36 +98,26 @@ namespace SpaceInvaders_1._0
                 return;
             }
 
-            if (keysPressed.Count >= 1)
+            if (keyUp)
             {
-                // switch case for checking which button is pressed and start Game.MovePlayer method to move playership
-                switch (keysPressed[0])
-                {
-                    case Keys.Left:
-                        game.MovePlayer(Parameters.Direction.Left);
-                        break;
-                    case Keys.Right:
-                        game.MovePlayer(Parameters.Direction.Right);
-                        break;
-                    case Keys.Up:
-                        game.MovePlayer(Parameters.Direction.Up);
-                        break;
-                    case Keys.Down:
-                        game.MovePlayer(Parameters.Direction.Down);
-                        break;
-                    case Keys.Space:
+                game.MovePlayer(Parameters.Direction.Up);
+            }
+            else if (keyDown)
+            {
+                game.MovePlayer(Parameters.Direction.Down);
+            }
+            else if (keyRight)
+            {
+                game.MovePlayer(Parameters.Direction.Right);
+            }
+            else if (keyLeft)
+            {
+                game.MovePlayer(Parameters.Direction.Left);
+            }
 
-                        // if nextShot is true create another one
-                        if (nextShot)
-                        {
-                            game.CreateOneShot();
-                            nextShot = false;
-                            ShotDelayTimer.Stop();
-                            ShotDelayTimer.Start();
-                        }
-
-                        break;
-                }
+            if (keySpace)
+            {
+                createShot();
             }
 
             game.FireShots();
@@ -129,33 +136,61 @@ namespace SpaceInvaders_1._0
         {
             // Handle scenario if user wants to quit 
             if (e.KeyCode == Keys.Q)
+            {
                 Application.Exit();
+            }
 
-            //User wishes to start a new game
-            if (gameOver && e.KeyCode == Keys.S)
+            if (e.KeyCode == Keys.S && gameOver)
             {
                 StartGame();
             }
-            /*    
-             * Game key presses.
-             * The keysPressed list contains key presses the game must deal with
-             */
-            if  (keysPressed.Contains(e.KeyCode))
+
+            if (gameOver)
             {
-                // If key is pressed and it's already on the list then remove 
-                // it and re-add it to make it next item to get processed. 
-                keysPressed.Remove(e.KeyCode);
+                return;
             }
 
-            keysPressed.Add(e.KeyCode);
+            //User wishes to start a new game
+            switch (e.KeyCode)
+            {
+                case Keys.Up:
+                    keyUp = true;
+                    break;
+                case Keys.Down:
+                    keyDown = true;
+                    break;
+                case Keys.Left:
+                    keyLeft = true;
+                    break;
+                case Keys.Right:
+                    keyRight = true;
+                    break;
+                case Keys.Space:
+                    keySpace = true;
+                    break;
+            }
         }
 
         private void Form1_KeyUp(object sender, KeyEventArgs e)
         {
-            //When key is released, remove it from list 
-            if (keysPressed.Contains(e.KeyCode))
+            //User wishes to start a new game
+            switch (e.KeyCode)
             {
-                keysPressed.Remove(e.KeyCode);
+                case Keys.Up:
+                    keyUp = false;
+                    break;
+                case Keys.Down:
+                    keyDown = false;
+                    break;
+                case Keys.Left:
+                    keyLeft = false;
+                    break;
+                case Keys.Right:
+                    keyRight = false;
+                    break;
+                case Keys.Space:
+                    keySpace = false;
+                    break;
             }
         }
     }
