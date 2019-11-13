@@ -15,8 +15,6 @@ namespace SpaceInvaders_1._0
         private PlayerShip playerShip;
         private Random random;
         private List<Invader> invaders = new List<Invader>();
-        //private Invader invader;
-        //private Invader invader2;
         private List<Shot> playerShots = new List<Shot>();
 
         // constructor of class Game
@@ -32,8 +30,6 @@ namespace SpaceInvaders_1._0
         {
             playerShip = new PlayerShip(new Point(boundaries.Width / 2, boundaries.Height));
             GenerateInvaders();
-            //invader = new Invader(new Point(Parameters.invaderInitialLeft, 0));
-            //invader2 = new Invader(new Point(invader.Location.X + Parameters.invaderHorizSpacing, 0));
 
         }
 
@@ -53,8 +49,6 @@ namespace SpaceInvaders_1._0
             }
 
             playerShip.Draw(graphics);
-            //invader.Draw(graphics);
-            //invader2.Draw(graphics);
 
             foreach (Invader invader in invaders)
             {
@@ -117,9 +111,9 @@ namespace SpaceInvaders_1._0
         {
             Invader newInvader = new Invader(new Point(Parameters.invaderInitialLeft, Parameters.invaderInitialTop));
 
-            for (int i = 0; i < Parameters.invadersPerRow - 1; i++)
+            for (int i = 0; i < 5; i++)
             {
-                for (int j = 0; j < 6; j++)
+                for (int j = 0; j < Parameters.invadersPerRow; j++)
                 {
                     switch (i)
                     {
@@ -142,10 +136,10 @@ namespace SpaceInvaders_1._0
                     }
 
                     invaders.Add(newInvader);
-                    newInvader = new Invader(new Point (newInvader.Location.X + Parameters.invaderHorizSpacing, newInvader.Location.Y));
+                    newInvader = new Invader(new Point (newInvader.Location.X + Parameters.invaderHorizontalSpacing, newInvader.Location.Y));
                 }
 
-                newInvader.Location = new Point(Parameters.invaderInitialLeft, newInvader.Location.Y + Parameters.invaderVertSpacing);
+                newInvader.Location = new Point(Parameters.invaderInitialLeft, newInvader.Location.Y + Parameters.invaderVerticalSpacing);
             }
         }
     }
