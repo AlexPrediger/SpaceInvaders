@@ -98,15 +98,7 @@ namespace SpaceInvaders_1._0
                 return;
             }
 
-            if (keyUp)
-            {
-                game.MovePlayer(Parameters.Direction.Up);
-            }
-            else if (keyDown)
-            {
-                game.MovePlayer(Parameters.Direction.Down);
-            }
-            else if (keyRight)
+            if (keyRight)
             {
                 game.MovePlayer(Parameters.Direction.Right);
             }
@@ -114,6 +106,14 @@ namespace SpaceInvaders_1._0
             {
                 game.MovePlayer(Parameters.Direction.Left);
             }
+            else if (keyDown)
+            {
+                game.MovePlayer(Parameters.Direction.Down);
+            }
+            else if (keyUp)
+            {
+                game.MovePlayer(Parameters.Direction.Up);
+            } 
 
             if (keySpace)
             {
