@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace SpaceInvaders_1._0
 {
-    class Invader : Ship
+    class Invader : AbstractMove, IShipMethods
     {
         private Parameters.InvaderTypes invaderType;
 
@@ -47,6 +47,22 @@ namespace SpaceInvaders_1._0
                     Image = Properties.Resources.star2;
                     break;
                 default: break;
+            }
+        }
+
+        public override void Move(Parameters.Direction direction)
+        {
+            if (direction == Parameters.Direction.Left)
+            {
+                location.X -= Parameters.invaderHorziontalIncreament;
+            }
+            else if (direction == Parameters.Direction.Right)
+            {
+                location.X += Parameters.invaderHorziontalIncreament;
+            }
+            else if (direction == Parameters.Direction.Down)
+            {
+                location.Y += Parameters.invaderVerticalIncreament;
             }
         }
     }

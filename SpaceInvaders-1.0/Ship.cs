@@ -9,8 +9,8 @@ namespace SpaceInvaders_1._0
 {
     class Ship
     {
-        private Point location;
-        private Bitmap image;
+        protected Point location;
+        protected Bitmap image;
 
         //Declare the properties for location and image here
         public Ship(Point location)
@@ -27,7 +27,7 @@ namespace SpaceInvaders_1._0
         }
 
         // method to move playership into positive and negative x and y direction
-        public void Move(Parameters.Direction direction)
+        public virtual void Move(Parameters.Direction direction)
         {
             if (direction == Parameters.Direction.Left)
             {

@@ -16,6 +16,7 @@ namespace SpaceInvaders_1._0
         private Random random;
         private List<Invader> invaders = new List<Invader>();
         private List<Shot> playerShots = new List<Shot>();
+        private Parameters.Direction invaderDirection = Parameters.Direction.Right;
 
         // constructor of class Game
         public Game(Rectangle boundaries)
@@ -140,6 +141,41 @@ namespace SpaceInvaders_1._0
                 }
 
                 newInvader.Location = new Point(Parameters.invaderInitialLeft, newInvader.Location.Y + Parameters.invaderVerticalSpacing);
+            }
+        }
+
+        public void MoveAllInvaders()
+        {
+            bool createNewInvaders = false;
+
+            foreach(Invader invader in invaders)
+            {
+                if (invaders[0].Location.X <= boundaries.Left)
+                {
+                    invader.Move(Parameters.Direction.Down);
+                    invaderDirection = Parameters.Direction.Right;
+                }
+                else if (invaders[Parameters.invadersPerRow - 1].Location.X + invaders[Parameters.invadersPerRow - 1].Image.Width >= boundaries.Right)
+                {
+                    invader.Move(Parameters.Direction.Down);
+                    invaderDirection = Parameters.Direction.Left;
+                }
+
+                if (invader.Location.Y + invader.Image.Height >= boundaries.Bottom)
+                {
+                    createNewInvaders = true;
+                    break;
+                } 
+                else
+                {
+                    invader.Move(invaderDirection);
+                }
+            }
+
+            if (createNewInvaders)
+            {
+                invaders.Clear();
+                GenerateInvaders();
             }
         }
     }
