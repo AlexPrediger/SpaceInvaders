@@ -17,6 +17,7 @@ namespace SpaceInvaders_1._0
         private List<Invader> invaders = new List<Invader>();
         private List<Shot> playerShots = new List<Shot>();
         private Parameters.Direction invaderDirection = Parameters.Direction.Right;
+        private Parameters.Direction initialInvaderDirection;
 
         // constructor of class Game
         public Game(Rectangle boundaries)
@@ -24,14 +25,15 @@ namespace SpaceInvaders_1._0
             this.boundaries = boundaries;
             stars = new Stars(boundaries);
             random = new Random();
+            initialInvaderDirection = invaderDirection;
         }
 
         // method to start game
         public void StartGame()
         {
+            ResetInvaders();
             playerShip = new PlayerShip(new Point(boundaries.Width / 2, boundaries.Height));
             GenerateInvaders();
-
         }
 
         // method to draw stars and playership
@@ -174,9 +176,30 @@ namespace SpaceInvaders_1._0
 
             if (createNewInvaders)
             {
-                invaders.Clear();
+                ResetInvaders();
                 GenerateInvaders();
             }
+        }
+
+        public bool ControlCollisionState()
+        {
+            foreach(Invader invader in invaders)
+            {
+                if (invader.Location.Y + invader.Image.Height >= playerShip.Location.Y && 
+                    (invader.Location.X - invader.Image.Width == playerShip.Location.X ||
+                    invader.Location.X + invader.Image.Width == playerShip.Location.X))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public void ResetInvaders()
+        {
+            invaders.Clear();
+            invaderDirection = initialInvaderDirection;
         }
     }
 }

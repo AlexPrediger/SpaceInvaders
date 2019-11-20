@@ -16,6 +16,7 @@ namespace SpaceInvaders_1._0
         private Game game;
         private List<Keys> keysPressed = new List<Keys>();
         private bool gameOver = true;
+        private bool gameOverMessageShown = false;
         private bool nextShot = true;
         private Bitmap bitmap;
         private Graphics graphics;
@@ -57,12 +58,18 @@ namespace SpaceInvaders_1._0
 
             // Begin the game
             gameOver = false;
+            gameOverMessageShown = false;
             game.StartGame();
         }
 
         // Eventhandler for animation Timerevent
         private void AnimationTimer_Tick(object sender, EventArgs e)
         {
+            if (gameOver)
+            {
+                return;
+            }
+
             game.Twinkle();
 
             // Redraw Form1
@@ -95,6 +102,11 @@ namespace SpaceInvaders_1._0
         {
             if (gameOver)
             {
+                if (!gameOverMessageShown)
+                {
+                    gameOverMessageShown = true;
+                    MessageBox.Show("GAME OVER! :(");
+                }
                 return;
             }
 
@@ -125,6 +137,8 @@ namespace SpaceInvaders_1._0
 
             //Redraw the form
             this.Refresh();
+
+            gameOver = game.ControlCollisionState();
         }
 
         private void ShotDelayTimer_Tick(object sender, EventArgs e)
