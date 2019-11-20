@@ -120,6 +120,7 @@ namespace SpaceInvaders_1._0
                 createShot();
             }
 
+            game.MoveAllInvaders();
             game.FireShots();
 
             //Redraw the form

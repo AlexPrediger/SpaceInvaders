@@ -47,8 +47,8 @@ namespace SpaceInvaders_1._0
         public const int invaderInitialTop = 20;
         public const int invaderHorizontalSpacing = 90;
         public const int invaderVerticalSpacing = 60;
-        public const int invaderHorziontalInc = 3;
-        public const int invaderVerticalInc = 25;
+        public const int invaderHorziontalIncreament = 3;
+        public const int invaderVerticalIncreament = 25;
         public const int invaderEdgeOfScreen = 25;
         public const int invaderImageWidths = 50;
 
