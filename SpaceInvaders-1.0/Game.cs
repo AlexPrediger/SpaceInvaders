@@ -110,6 +110,20 @@ namespace SpaceInvaders_1._0
             playerShots = newPlayerShots;
         }
 
+        public void RemoveShots()
+        {
+            List<Shot> newPlayerShots = new List<Shot>();
+            foreach (Shot shot in playerShots)
+            {
+                if (shot.RemoveShotFlag == false)
+                {
+                    newPlayerShots.Add(shot);
+                }
+            }
+
+            playerShots = newPlayerShots;
+        }
+
         public void GenerateInvaders()
         {
             Invader newInvader = new Invader(new Point(Parameters.invaderInitialLeft, Parameters.invaderInitialTop));
@@ -185,7 +199,7 @@ namespace SpaceInvaders_1._0
         {
             foreach(Invader invader in invaders)
             {
-                if (invader.Location.Y + invader.Image.Height >= playerShip.Location.Y && 
+                if (invader.Location.Y + invader.Image.Height >= playerShip.Location.Y &&
                     (invader.Location.X - invader.Image.Width == playerShip.Location.X ||
                     invader.Location.X + invader.Image.Width == playerShip.Location.X))
                 {
@@ -200,6 +214,38 @@ namespace SpaceInvaders_1._0
         {
             invaders.Clear();
             invaderDirection = initialInvaderDirection;
+        }
+
+        public void CheckShotInvaderCollision()
+        {
+            if (playerShots.Count == 0)
+            {
+                return;
+            }
+
+            List<Invader> newInvaders = new List<Invader>();
+            for(int j = 0; j < invaders.Count; j++)
+            {
+                for(int i = 0; i < playerShots.Count; i++)
+                {
+                    if (invaders[j].Location.Y + invaders[j].Image.Height >= playerShots[i].Location.Y &&
+                        invaders[j].Location.Y <= playerShots[i].Location.Y + Parameters.shotHeight &&
+                        invaders[j].Location.X <= playerShots[i].Location.X + Parameters.shotWidth &&
+                        invaders[j].Location.X + invaders[j].Image.Width >= playerShots[i].Location.X)
+                    {
+                        playerShots[i].RemoveShotFlag = true;
+                    } 
+                    else
+                    {
+                        newInvaders.Add(invaders[j]);
+                    }
+                }
+            }
+
+            if (newInvaders.Count > 0)
+            {
+                invaders = newInvaders;
+            }
         }
     }
 }

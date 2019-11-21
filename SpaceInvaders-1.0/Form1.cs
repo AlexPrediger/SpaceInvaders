@@ -134,10 +134,11 @@ namespace SpaceInvaders_1._0
 
             game.MoveAllInvaders();
             game.FireShots();
+            game.CheckShotInvaderCollision();
+            game.RemoveShots();
 
             //Redraw the form
             this.Refresh();
-
             gameOver = game.ControlCollisionState();
         }
 
