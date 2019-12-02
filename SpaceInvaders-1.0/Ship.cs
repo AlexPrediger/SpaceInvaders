@@ -15,8 +15,6 @@ namespace SpaceInvaders_1._0
         //Declare the properties for location and image here
         public Ship(Point location)
         {
-            //location.X = location.X - this.image.Width / 2;
-            //location.Y = location.Y - this.image.Height;
             this.location = location;
         }
 

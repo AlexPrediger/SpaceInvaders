@@ -50,12 +50,17 @@ namespace SpaceInvaders_1._0
             {
                 removeShotFlag = true;
             }
-
         }
 
         public bool RemoveShotFlag
         {
             get { return removeShotFlag; }
+            set { removeShotFlag = value; }
+        }
+
+        public Point Location
+        {
+            get { return location; }
         }
     }
 }

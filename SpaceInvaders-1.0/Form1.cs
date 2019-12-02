@@ -85,7 +85,7 @@ namespace SpaceInvaders_1._0
             e.Graphics.DrawImageUnscaled(bitmap, 0, 0);
         }
 
-        private void createShot()
+        private void CreateShot()
         {
             // if nextShot is true create another one
             if (nextShot)
@@ -129,15 +129,15 @@ namespace SpaceInvaders_1._0
 
             if (keySpace)
             {
-                createShot();
+                CreateShot();
             }
 
             game.MoveAllInvaders();
             game.FireShots();
+            game.CheckShotInvaderCollision();
 
             //Redraw the form
             this.Refresh();
-
             gameOver = game.ControlCollisionState();
         }
 
