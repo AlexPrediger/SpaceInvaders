@@ -211,8 +211,9 @@ namespace SpaceInvaders_1._0
             foreach(Invader invader in invaders)
             {
                 if (invader.Location.Y + invader.Image.Height >= playerShip.Location.Y &&
-                    (invader.Location.X - invader.Image.Width <= playerShip.Location.X &&
-                    invader.Location.X + invader.Image.Width >= playerShip.Location.X))
+                    invader.Location.Y <= playerShip.Location.Y + playerShip.Image.Height &&
+                    invader.Location.X - invader.Image.Width <= playerShip.Location.X &&
+                    invader.Location.X + invader.Image.Width >= playerShip.Location.X)
                 {
                     return true;
                 }
