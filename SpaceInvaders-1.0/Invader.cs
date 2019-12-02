@@ -15,15 +15,11 @@ namespace SpaceInvaders_1._0
         {
             this.invaderType = invaderType;
             SetImage(invaderType);
-            //location.X = location.X - Image.Width / 2;
-            //location.Y = location.Y - Image.Height;
             Location = location;
         }
         public Invader(Point location) : base(location)
         {
             Image = Properties.Resources.bug1;
-            //location.X = location.X - Image.Width / 2;
-            //location.Y = location.Y - Image.Height;
             Location = location;
         }
 

@@ -240,7 +240,6 @@ namespace SpaceInvaders_1._0
                 GenerateInvaders();
             }
 
-            //List<Invader> newInvaders = new List<Invader>();
             for (int i = 0; i < playerShots.Count; i++)
             {
                 for (int j = invaders.Count() - 1; j >= 0; j--) 
@@ -255,11 +254,6 @@ namespace SpaceInvaders_1._0
                     }
                 }
             }
-
-            //if (newInvaders.Count > 0)
-            //{
-                //invaders = newInvaders;
-            //}
         }
     }
 }
