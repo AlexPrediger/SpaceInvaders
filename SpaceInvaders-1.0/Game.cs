@@ -86,7 +86,7 @@ namespace SpaceInvaders_1._0
 
         public void CreateOneShot()
         {
-            if (playerShots.Count > Parameters.maxShots)
+            if (playerShots.Count >= Parameters.maxShots)
             {
                 return;
             }
@@ -164,14 +164,25 @@ namespace SpaceInvaders_1._0
         {
             bool createNewInvaders = false;
 
-            foreach(Invader invader in invaders)
+            Invader maxWidthInvader = new Invader(new Point (boundaries.Left, 0));
+            Invader minWidthInvader = new Invader(new Point(boundaries.Right), 0);
+
+            foreach (Invader invader in invaders)
             {
-                if (invaders[0].Location.X <= boundaries.Left)
+                if (invader.Location.X <= minWidthInvader.Location.X)
+                    minWidthInvader = invader;
+                if (invader.Location.X >= maxWidthInvader.Location.X)
+                    maxWidthInvader = invader;
+            }
+
+            foreach (Invader invader in invaders)
+            {
+                if (minWidthInvader.Location.X <= boundaries.Left)
                 {
                     invader.Move(Parameters.Direction.Down);
                     invaderDirection = Parameters.Direction.Right;
                 }
-                else if (invaders[Parameters.invadersPerRow - 1].Location.X + invaders[Parameters.invadersPerRow - 1].Image.Width >= boundaries.Right)
+                else if (maxWidthInvader.Location.X + maxWidthInvader.Image.Width >= boundaries.Right)
                 {
                     invader.Move(Parameters.Direction.Down);
                     invaderDirection = Parameters.Direction.Left;
@@ -200,8 +211,8 @@ namespace SpaceInvaders_1._0
             foreach(Invader invader in invaders)
             {
                 if (invader.Location.Y + invader.Image.Height >= playerShip.Location.Y &&
-                    (invader.Location.X - invader.Image.Width == playerShip.Location.X ||
-                    invader.Location.X + invader.Image.Width == playerShip.Location.X))
+                    (invader.Location.X - invader.Image.Width <= playerShip.Location.X &&
+                    invader.Location.X + invader.Image.Width >= playerShip.Location.X))
                 {
                     return true;
                 }
@@ -223,10 +234,16 @@ namespace SpaceInvaders_1._0
                 return;
             }
 
-            List<Invader> newInvaders = new List<Invader>();
-            for(int j = 0; j < invaders.Count; j++)
+            if (invaders.Count() <= 0)
             {
-                for(int i = 0; i < playerShots.Count; i++)
+                ResetInvaders();
+                GenerateInvaders();
+            }
+
+            //List<Invader> newInvaders = new List<Invader>();
+            for (int i = 0; i < playerShots.Count; i++)
+            {
+                for (int j = invaders.Count() - 1; j >= 0; j--) 
                 {
                     if (invaders[j].Location.Y + invaders[j].Image.Height >= playerShots[i].Location.Y &&
                         invaders[j].Location.Y <= playerShots[i].Location.Y + Parameters.shotHeight &&
@@ -234,18 +251,15 @@ namespace SpaceInvaders_1._0
                         invaders[j].Location.X + invaders[j].Image.Width >= playerShots[i].Location.X)
                     {
                         playerShots[i].RemoveShotFlag = true;
-                    } 
-                    else
-                    {
-                        newInvaders.Add(invaders[j]);
+                        invaders.RemoveAt(j);
                     }
                 }
             }
 
-            if (newInvaders.Count > 0)
-            {
-                invaders = newInvaders;
-            }
+            //if (newInvaders.Count > 0)
+            //{
+                //invaders = newInvaders;
+            //}
         }
     }
 }
