@@ -26,6 +26,7 @@ namespace SpaceInvaders_1._0
         private bool gameOver = true;
         private bool firstGame = true;
         private bool pause;
+        private int level;
 
         // constructor of class Game
         public Game(Rectangle boundaries)
@@ -45,6 +46,7 @@ namespace SpaceInvaders_1._0
             if (lives < 1)
             {
                 lives = Parameters.startLives;
+                level = Parameters.startLevel;
                 score = 0;
                 gameOver = false;
             }
@@ -147,10 +149,14 @@ namespace SpaceInvaders_1._0
         public void GenerateInvaders()
         {
             Invader newInvader = new Invader(new Point(Parameters.invaderInitialLeft, Parameters.invaderInitialTop));
+            int invadersPerRow = Parameters.invadersPerRow + level / 5;
+
+            if (invadersPerRow > 10)
+                invadersPerRow = 10;
 
             for (int i = 0; i < 5; i++)
             {
-                for (int j = 0; j < Parameters.invadersPerRow; j++)
+                for (int j = 0; j < invadersPerRow; j++)
                 {
                     switch (i)
                     {
@@ -199,12 +205,12 @@ namespace SpaceInvaders_1._0
             {
                 if (minWidthInvader.Location.X <= boundaries.Left)
                 {
-                    invader.Move(Parameters.Direction.Down);
+                    invader.Move(Parameters.Direction.Down, level);
                     invaderDirection = Parameters.Direction.Right;
                 }
                 else if (maxWidthInvader.Location.X + maxWidthInvader.Image.Width >= boundaries.Right)
                 {
-                    invader.Move(Parameters.Direction.Down);
+                    invader.Move(Parameters.Direction.Down, level);
                     invaderDirection = Parameters.Direction.Left;
                 }
 
@@ -215,7 +221,7 @@ namespace SpaceInvaders_1._0
                 } 
                 else
                 {
-                    invader.Move(invaderDirection);
+                    invader.Move(invaderDirection, level);
                 }
             }
 
@@ -267,6 +273,7 @@ namespace SpaceInvaders_1._0
 
             if (invaders.Count() <= 0)
             {
+                level++;
                 ResetInvaders();
                 GenerateInvaders();
             }

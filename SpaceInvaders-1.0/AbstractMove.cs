@@ -14,6 +14,6 @@ namespace SpaceInvaders_1._0
 
         }
 
-        public abstract void Move(Parameters.Direction direction);
+        public abstract void Move(Parameters.Direction direction, int level);
     }
 }

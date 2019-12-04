@@ -52,19 +52,19 @@ namespace SpaceInvaders_1._0
             }
         }
 
-        public override void Move(Parameters.Direction direction)
+        public override void Move(Parameters.Direction direction, int level)
         {
             if (direction == Parameters.Direction.Left)
             {
-                location.X -= Parameters.invaderHorziontalIncreament;
+                location.X -= Parameters.invaderHorziontalIncreament + level / 2;
             }
             else if (direction == Parameters.Direction.Right)
             {
-                location.X += Parameters.invaderHorziontalIncreament;
+                location.X += Parameters.invaderHorziontalIncreament + level / 2;
             }
             else if (direction == Parameters.Direction.Down)
             {
-                location.Y += Parameters.invaderVerticalIncreament;
+                location.Y += Parameters.invaderVerticalIncreament + level;
             }
         }
 
