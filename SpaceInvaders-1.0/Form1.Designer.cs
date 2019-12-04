@@ -86,7 +86,7 @@
             this.titleLabel.AutoSize = true;
             this.titleLabel.BackColor = System.Drawing.Color.Transparent;
             this.titleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.titleLabel.ForeColor = System.Drawing.Color.Red;
+            this.titleLabel.ForeColor = System.Drawing.Color.LightCoral;
             this.titleLabel.Location = new System.Drawing.Point(397, 20);
             this.titleLabel.Name = "titleLabel";
             this.titleLabel.Size = new System.Drawing.Size(333, 39);
@@ -99,7 +99,7 @@
             this.startConditionLabel.AutoSize = true;
             this.startConditionLabel.BackColor = System.Drawing.Color.Transparent;
             this.startConditionLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.startConditionLabel.ForeColor = System.Drawing.Color.Blue;
+            this.startConditionLabel.ForeColor = System.Drawing.Color.LightSkyBlue;
             this.startConditionLabel.Location = new System.Drawing.Point(410, 77);
             this.startConditionLabel.Name = "startConditionLabel";
             this.startConditionLabel.Size = new System.Drawing.Size(269, 39);
@@ -111,7 +111,7 @@
             this.gameOverLabel.AutoSize = true;
             this.gameOverLabel.BackColor = System.Drawing.Color.Transparent;
             this.gameOverLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gameOverLabel.ForeColor = System.Drawing.Color.Red;
+            this.gameOverLabel.ForeColor = System.Drawing.Color.LightCoral;
             this.gameOverLabel.Location = new System.Drawing.Point(410, 152);
             this.gameOverLabel.Name = "gameOverLabel";
             this.gameOverLabel.Size = new System.Drawing.Size(197, 39);
@@ -124,7 +124,7 @@
             this.scoredPointsLabel.AutoSize = true;
             this.scoredPointsLabel.BackColor = System.Drawing.Color.Transparent;
             this.scoredPointsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.scoredPointsLabel.ForeColor = System.Drawing.Color.Blue;
+            this.scoredPointsLabel.ForeColor = System.Drawing.Color.LightSkyBlue;
             this.scoredPointsLabel.Location = new System.Drawing.Point(407, 211);
             this.scoredPointsLabel.Name = "scoredPointsLabel";
             this.scoredPointsLabel.Size = new System.Drawing.Size(273, 33);
@@ -136,7 +136,7 @@
             this.readLabel.AutoSize = true;
             this.readLabel.BackColor = System.Drawing.Color.Transparent;
             this.readLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.readLabel.ForeColor = System.Drawing.Color.Red;
+            this.readLabel.ForeColor = System.Drawing.Color.LightCoral;
             this.readLabel.Location = new System.Drawing.Point(414, 278);
             this.readLabel.Name = "readLabel";
             this.readLabel.Size = new System.Drawing.Size(360, 29);
@@ -148,7 +148,7 @@
             this.writeLabel.AutoSize = true;
             this.writeLabel.BackColor = System.Drawing.Color.Transparent;
             this.writeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.writeLabel.ForeColor = System.Drawing.Color.Red;
+            this.writeLabel.ForeColor = System.Drawing.Color.LightCoral;
             this.writeLabel.Location = new System.Drawing.Point(414, 331);
             this.writeLabel.Name = "writeLabel";
             this.writeLabel.Size = new System.Drawing.Size(345, 29);
