@@ -18,6 +18,9 @@ namespace SpaceInvaders_1._0
         private List<Shot> playerShots = new List<Shot>();
         private Parameters.Direction invaderDirection = Parameters.Direction.Right;
         private Parameters.Direction initialInvaderDirection;
+        private int score;
+        private int lives;
+        private bool pause;
 
         // constructor of class Game
         public Game(Rectangle boundaries)
@@ -26,11 +29,19 @@ namespace SpaceInvaders_1._0
             stars = new Stars(boundaries);
             random = new Random();
             initialInvaderDirection = invaderDirection;
+            lives = Parameters.startLives;
+            pause = false;
         }
 
         // method to start game
         public void StartGame()
         {
+            if (lives < 1)
+            {
+                lives = Parameters.startLives;
+                score = 0;
+            }
+
             ResetInvaders();
             playerShip = new PlayerShip(new Point(boundaries.Width / 2, boundaries.Height));
             GenerateInvaders();
@@ -215,10 +226,23 @@ namespace SpaceInvaders_1._0
                     invader.Location.X - invader.Image.Width <= playerShip.Location.X &&
                     invader.Location.X + invader.Image.Width >= playerShip.Location.X)
                 {
-                    return true;
+                    return ReduceLife();
                 }
             }
 
+            return false;
+        }
+
+        public bool ReduceLife()
+        {
+            lives--;
+
+            if (lives <= 0)
+            {
+                return true;
+            }
+
+            pause = true;
             return false;
         }
 
@@ -251,10 +275,28 @@ namespace SpaceInvaders_1._0
                         invaders[j].Location.X + invaders[j].Image.Width >= playerShots[i].Location.X)
                     {
                         playerShots[i].RemoveShotFlag = true;
+                        score += invaders[j].InvaderScore;
                         invaders.RemoveAt(j);
                     }
                 }
             }
+        }
+
+        public int Score
+        {
+            get { return score; }
+            set { score = value; }
+        }
+
+        public int Lives
+        {
+            get { return lives; }
+        }
+
+        public bool Pause
+        {
+            get { return pause; }
+            set { pause = value; }
         }
     }
 }

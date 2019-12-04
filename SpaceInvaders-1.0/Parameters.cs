@@ -28,6 +28,9 @@ namespace SpaceInvaders_1._0
         public const int   animationTimerInterval = 330;
         public const int   gameTimerInterval = 10;
 
+        //Game Constants
+        public const int startLives = 3;
+
         //Stars Constants
         public const int   starsInSky = 300;
 

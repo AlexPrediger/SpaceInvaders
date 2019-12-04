@@ -10,6 +10,7 @@ namespace SpaceInvaders_1._0
     class Invader : AbstractMove, IShipMethods
     {
         private Parameters.InvaderTypes invaderType;
+        private int invaderScore;
 
         public Invader(Point location, Parameters.InvaderTypes invaderType) : base(location)
         {
@@ -29,18 +30,23 @@ namespace SpaceInvaders_1._0
             {
                 case Parameters.InvaderTypes.bug:
                     Image = Properties.Resources.bug1;
+                    invaderScore = Parameters.bugScore;
                     break;
                 case Parameters.InvaderTypes.satellite:
                     Image = Properties.Resources.satellite1;
+                    invaderScore = Parameters.satelliteScore;
                     break;
                 case Parameters.InvaderTypes.saucer:
                     Image = Properties.Resources.flyingsaucer1;
+                    invaderScore = Parameters.saucerScore;
                     break;
                 case Parameters.InvaderTypes.spaceship:
                     Image = Properties.Resources.spaceship1;
+                    invaderScore = Parameters.spaceshipScore;
                     break;
                 case Parameters.InvaderTypes.star:
                     Image = Properties.Resources.star2;
+                    invaderScore = Parameters.starScore;
                     break;
                 default: break;
             }
@@ -60,6 +66,11 @@ namespace SpaceInvaders_1._0
             {
                 location.Y += Parameters.invaderVerticalIncreament;
             }
+        }
+
+        public int InvaderScore
+        {
+            get { return invaderScore; }
         }
     }
 }
