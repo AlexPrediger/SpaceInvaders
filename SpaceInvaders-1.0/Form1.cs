@@ -15,7 +15,6 @@ namespace SpaceInvaders_1._0
         // initialize variables
         private Game game;
         private List<Keys> keysPressed = new List<Keys>();
-        private bool gameOver = true;
         private bool nextShot = true;
         private Bitmap bitmap;
         private Graphics graphics;
@@ -34,8 +33,6 @@ namespace SpaceInvaders_1._0
             // Use DoubleBuffered to stop flickering at Refresh method
             this.DoubleBuffered = true;
 
-            CenterLabels();
-
             // Declare new game, setting game boundaries
             game = new Game(this.DisplayRectangle);
 
@@ -51,8 +48,6 @@ namespace SpaceInvaders_1._0
         {
             livesLabel.Visible = true;
             scoreLabel.Visible = true;
-            gameOverLabel.Visible = false;
-            SetMenuLabels(false);
 
             // Start game timer
             GameTimer.Interval = Parameters.gameTimerInterval;
@@ -63,18 +58,12 @@ namespace SpaceInvaders_1._0
             ShotDelayTimer.Start();
 
             // Begin the game
-            gameOver = false;
             game.StartGame();
         }
 
         // Eventhandler for animation Timerevent
         private void AnimationTimer_Tick(object sender, EventArgs e)
         {
-            if (gameOver)
-            {
-                return;
-            }
-
             game.Twinkle();
 
             // Redraw Form1
@@ -84,7 +73,7 @@ namespace SpaceInvaders_1._0
         // Eventhandler for Paintevent
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            game.Draw(graphics, gameOver);
+            game.Draw(graphics);
 
             // Copy bitmap image onto Form1 graphics
             e.Graphics.DrawImageUnscaled(bitmap, 0, 0);
@@ -105,7 +94,7 @@ namespace SpaceInvaders_1._0
         // Eventhandler for game Timerevent
         private void GameTimer_Tick(object sender, EventArgs e)
         {
-            if (gameOver)
+            if (game.GameOver || game.Pause)
             {
                 return;
             }
@@ -138,16 +127,7 @@ namespace SpaceInvaders_1._0
             scoreLabel.Text = "Score: " + game.Score.ToString();
             livesLabel.Text = "Lives: " + game.Lives.ToString();
 
-            gameOver = game.ControlCollisionState();
-            
-            if (game.Pause)
-            {
-                GameTimer.Stop();
-                SetMenuLabels(true);
-            }
-
-            if (gameOver)
-                gameOverLabel.Visible = true;
+            game.ControlCollisionState();
 
             //Redraw the form
             this.Refresh();
@@ -158,6 +138,31 @@ namespace SpaceInvaders_1._0
             // if Parameters.milliSecondsPerShot time in ms has passed set bool true
             nextShot = true;
         }
+        private void writeScores()
+        {
+            saveFileDialog1.InitialDirectory = " ";
+            saveFileDialog1.Filter = "Text files (*.txt)|*.txt| All Data (*.*)|*.*";
+            saveFileDialog1.FileName = "Scores.txt";
+            DialogResult result = saveFileDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                game.SaveData(saveFileDialog1.FileName);
+                MessageBox.Show("Score Information Saved");
+            }
+        }
+        private void readScores()
+        {
+            openFileDialog1.InitialDirectory = " ";
+            openFileDialog1.Filter = "Text	files	(*.txt)|*.txt|All Data (*.*) | *.* ";	
+            openFileDialog1.FileName = "Scores.txt";
+            DialogResult result = openFileDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                game.OpenData(openFileDialog1.FileName, graphics);
+                game.DrawStartScreen(graphics);
+                this.Refresh();
+            }
+        }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
@@ -167,13 +172,19 @@ namespace SpaceInvaders_1._0
                 Application.Exit();
             }
 
-            if (e.KeyCode == Keys.S && (gameOver || game.Pause))
+            if (e.KeyCode == Keys.S && (game.GameOver || game.Pause))
             {
                 StartGame();
                 game.Pause = false;
             }
 
-            if (gameOver)
+            if (e.KeyCode == Keys.W)
+                writeScores();
+
+            if (e.KeyCode == Keys.R)
+                readScores();
+
+            if (game.GameOver)
             {
                 return;
             }
@@ -220,26 +231,6 @@ namespace SpaceInvaders_1._0
                     keySpace = false;
                     break;
             }
-        }
-
-        private void SetMenuLabels(bool state)
-        {
-            titleLabel.Visible = state;
-            startConditionLabel.Visible = state;
-            scoredPointsLabel.Text = "You scored " + game.Score + " points";
-            scoredPointsLabel.Visible = state;
-            readLabel.Visible = state;
-            writeLabel.Visible = state;
-        }
-
-        private void CenterLabels()
-        {
-            titleLabel.Left = (this.Width - titleLabel.Width) / 2;
-            startConditionLabel.Left = (this.Width - startConditionLabel.Width) / 2;
-            gameOverLabel.Left = (this.Width - gameOverLabel.Width) / 2;
-            scoredPointsLabel.Left = (this.Width - scoredPointsLabel.Width) / 2;
-            readLabel.Left = (this.Width - readLabel.Width) / 2;
-            writeLabel.Left = (this.Width - writeLabel.Width) / 2;
         }
     }
 }

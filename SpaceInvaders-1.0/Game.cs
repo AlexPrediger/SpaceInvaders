@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.IO;
+using System.Media;
 
 namespace SpaceInvaders_1._0
 {
@@ -19,7 +21,10 @@ namespace SpaceInvaders_1._0
         private Parameters.Direction invaderDirection = Parameters.Direction.Right;
         private Parameters.Direction initialInvaderDirection;
         private int score;
+        private List<int> scores = new List<int>();
         private int lives;
+        private bool gameOver = true;
+        private bool firstGame = true;
         private bool pause;
 
         // constructor of class Game
@@ -29,17 +34,19 @@ namespace SpaceInvaders_1._0
             stars = new Stars(boundaries);
             random = new Random();
             initialInvaderDirection = invaderDirection;
-            lives = Parameters.startLives;
+            lives = 0;
             pause = false;
         }
 
         // method to start game
         public void StartGame()
         {
+            firstGame = false;
             if (lives < 1)
             {
                 lives = Parameters.startLives;
                 score = 0;
+                gameOver = false;
             }
 
             playerShots.Clear();
@@ -49,12 +56,13 @@ namespace SpaceInvaders_1._0
         }
 
         // method to draw stars and playership
-        public void Draw(Graphics graphics, Boolean gameOver)
+        public void Draw(Graphics graphics)
         {
             stars.Draw(graphics, boundaries);
 
-            if (gameOver)
+            if (gameOver || pause)
             {
+                DrawStartScreen(graphics);
                 return;
             }
 
@@ -218,7 +226,7 @@ namespace SpaceInvaders_1._0
             }
         }
 
-        public bool ControlCollisionState()
+        public void ControlCollisionState()
         {
             foreach(Invader invader in invaders)
             {
@@ -227,24 +235,21 @@ namespace SpaceInvaders_1._0
                     invader.Location.X - invader.Image.Width <= playerShip.Location.X &&
                     invader.Location.X + invader.Image.Width >= playerShip.Location.X)
                 {
-                    return ReduceLife();
+                    ReduceLife();
                 }
             }
-
-            return false;
         }
 
-        public bool ReduceLife()
+        public void ReduceLife()
         {
             lives--;
             pause = true;
 
             if (lives <= 0)
             {
-                return true;
+                gameOver = true;
+                scores.Add(score);
             }
-
-            return false;
         }
 
         public void ResetInvaders()
@@ -282,6 +287,76 @@ namespace SpaceInvaders_1._0
                 }
             }
         }
+        public void SaveData(string dataPath)
+        {
+            int scoreCount = 0;
+            using (Stream ausgabe = File.Create(dataPath))
+            {
+                BinaryWriter writer = new BinaryWriter(ausgabe);
+                scoreCount = scores.Count;
+                writer.Write(scoreCount);
+                foreach (int aScore in scores)
+                {
+                    writer.Write(aScore);
+                }
+            }
+        }
+        public void OpenData(string dataPath, Graphics g)
+        {
+            BinaryReader reader;
+            int scoreCount = 0;
+            int aScore;
+            int i;
+            scores.Clear();
+            using (Stream eingabe = File.OpenRead(dataPath))
+            {
+                reader = new BinaryReader(eingabe);
+                scoreCount = reader.ReadInt32();
+                for (i = 0; i < scoreCount; i++)
+                {
+                    aScore = reader.ReadInt32();
+                    scores.Add(aScore);
+                }
+            }
+        }
+
+        public void DrawStartScreen(Graphics g)
+        {
+
+            DrawLettersToScreen(g, "SPACE INVADERS", 30, 10f, Brushes.Red, true);
+            DrawLettersToScreen(g, "Press 'S' to Start", 30, 50f, Brushes.Blue, false);
+            if (firstGame)
+                DrawLettersToScreen(g, "New game. Good Luck!", 30, 90f, Brushes.Red, true);
+            else if (gameOver)
+                DrawLettersToScreen(g, "Game Over", 30, 90f, Brushes.Red, true);
+            else
+                DrawLettersToScreen(g, lives + " live(s) left! Be careful", 30, 90f, Brushes.Red, true);
+            DrawLettersToScreen(g, "you scored " + this.score.ToString() + " points", 30, 130f, Brushes.Blue, false);
+            DrawLettersToScreen(g, "Press 'r' to read scores from disk", 20, 170f, Brushes.Red, true);
+            if (scores.Count > 0)
+            {
+                DrawLettersToScreen(g, "Press 'w' to write scores to disk", 20, 200f, Brushes.Red, true);
+                ListComparer lc = new ListComparer();
+                scores.Sort(lc);
+                for (int i = 0; i < scores.Count; i++)
+                    DrawLettersToScreen(g, "Highscore " + (i + 1) + ": " + scores[i], 20, (float)(230 + (i * 30)), Brushes.YellowGreen, true);
+            }
+        }
+        private void DrawLettersToScreen(Graphics g, string message, int fontSize, float
+        topLocation, Brush bcolor, bool boldFlag)
+        {
+            Font drawFont;
+            if (boldFlag)
+                drawFont = new Font("Arial", fontSize, FontStyle.Bold);
+            else
+                drawFont = new Font("Arial", fontSize);
+            SizeF stringWidth = g.MeasureString(message, drawFont);
+            g.DrawString(message,
+            drawFont,
+            bcolor,
+            (boundaries.Right / 2) - (stringWidth.Width / 2),
+            topLocation);
+        }
 
         public int Score
         {
@@ -292,6 +367,12 @@ namespace SpaceInvaders_1._0
         public int Lives
         {
             get { return lives; }
+        }
+
+        public bool GameOver
+        {
+            get { return gameOver; }
+            set { gameOver = value; }
         }
 
         public bool Pause
