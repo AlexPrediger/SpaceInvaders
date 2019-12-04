@@ -30,6 +30,8 @@ namespace SpaceInvaders_1._0
 
         //Game Constants
         public const int startLives = 3;
+        public const int startLevel = 1;
+        public const int howManyInvaders = 30;
 
         //Stars Constants
         public const int   starsInSky = 300;
