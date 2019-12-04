@@ -135,10 +135,17 @@ namespace SpaceInvaders_1._0
             game.MoveAllInvaders();
             game.FireShots();
             game.CheckShotInvaderCollision();
+            score.Text = "Score: " + game.Score.ToString();
+            lives.Text = "Lives: " + game.Lives.ToString();
 
             //Redraw the form
             this.Refresh();
             gameOver = game.ControlCollisionState();
+            
+            if (game.Pause)
+            {
+                GameTimer.Stop();
+            }
         }
 
         private void ShotDelayTimer_Tick(object sender, EventArgs e)
@@ -155,9 +162,10 @@ namespace SpaceInvaders_1._0
                 Application.Exit();
             }
 
-            if (e.KeyCode == Keys.S && gameOver)
+            if (e.KeyCode == Keys.S && (gameOver || game.Pause))
             {
                 StartGame();
+                game.Pause = false;
             }
 
             if (gameOver)
