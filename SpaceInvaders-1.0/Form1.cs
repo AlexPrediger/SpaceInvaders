@@ -16,7 +16,6 @@ namespace SpaceInvaders_1._0
         private Game game;
         private List<Keys> keysPressed = new List<Keys>();
         private bool gameOver = true;
-        private bool gameOverMessageShown = false;
         private bool nextShot = true;
         private Bitmap bitmap;
         private Graphics graphics;
@@ -35,6 +34,8 @@ namespace SpaceInvaders_1._0
             // Use DoubleBuffered to stop flickering at Refresh method
             this.DoubleBuffered = true;
 
+            CenterLabels();
+
             // Declare new game, setting game boundaries
             game = new Game(this.DisplayRectangle);
 
@@ -48,6 +49,11 @@ namespace SpaceInvaders_1._0
         // method to start the game through starting gametime and method StartGame of class Game
         private void StartGame()
         {
+            livesLabel.Visible = true;
+            scoreLabel.Visible = true;
+            gameOverLabel.Visible = false;
+            SetMenuLabels(false);
+
             // Start game timer
             GameTimer.Interval = Parameters.gameTimerInterval;
             GameTimer.Start();
@@ -58,7 +64,6 @@ namespace SpaceInvaders_1._0
 
             // Begin the game
             gameOver = false;
-            gameOverMessageShown = false;
             game.StartGame();
         }
 
@@ -102,11 +107,6 @@ namespace SpaceInvaders_1._0
         {
             if (gameOver)
             {
-                if (!gameOverMessageShown)
-                {
-                    gameOverMessageShown = true;
-                    MessageBox.Show("GAME OVER! :(");
-                }
                 return;
             }
 
@@ -135,17 +135,22 @@ namespace SpaceInvaders_1._0
             game.MoveAllInvaders();
             game.FireShots();
             game.CheckShotInvaderCollision();
-            score.Text = "Score: " + game.Score.ToString();
-            lives.Text = "Lives: " + game.Lives.ToString();
+            scoreLabel.Text = "Score: " + game.Score.ToString();
+            livesLabel.Text = "Lives: " + game.Lives.ToString();
 
-            //Redraw the form
-            this.Refresh();
             gameOver = game.ControlCollisionState();
             
             if (game.Pause)
             {
                 GameTimer.Stop();
+                SetMenuLabels(true);
             }
+
+            if (gameOver)
+                gameOverLabel.Visible = true;
+
+            //Redraw the form
+            this.Refresh();
         }
 
         private void ShotDelayTimer_Tick(object sender, EventArgs e)
@@ -215,6 +220,26 @@ namespace SpaceInvaders_1._0
                     keySpace = false;
                     break;
             }
+        }
+
+        private void SetMenuLabels(bool state)
+        {
+            titleLabel.Visible = state;
+            startConditionLabel.Visible = state;
+            scoredPointsLabel.Text = "You scored " + game.Score + " points";
+            scoredPointsLabel.Visible = state;
+            readLabel.Visible = state;
+            writeLabel.Visible = state;
+        }
+
+        private void CenterLabels()
+        {
+            titleLabel.Left = (this.Width - titleLabel.Width) / 2;
+            startConditionLabel.Left = (this.Width - startConditionLabel.Width) / 2;
+            gameOverLabel.Left = (this.Width - gameOverLabel.Width) / 2;
+            scoredPointsLabel.Left = (this.Width - scoredPointsLabel.Width) / 2;
+            readLabel.Left = (this.Width - readLabel.Width) / 2;
+            writeLabel.Left = (this.Width - writeLabel.Width) / 2;
         }
     }
 }

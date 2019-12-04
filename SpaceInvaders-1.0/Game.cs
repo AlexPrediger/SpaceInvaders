@@ -42,6 +42,7 @@ namespace SpaceInvaders_1._0
                 score = 0;
             }
 
+            playerShots.Clear();
             ResetInvaders();
             playerShip = new PlayerShip(new Point(boundaries.Width / 2, boundaries.Height));
             GenerateInvaders();
@@ -236,13 +237,13 @@ namespace SpaceInvaders_1._0
         public bool ReduceLife()
         {
             lives--;
+            pause = true;
 
             if (lives <= 0)
             {
                 return true;
             }
 
-            pause = true;
             return false;
         }
 
