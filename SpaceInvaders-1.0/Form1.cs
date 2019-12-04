@@ -121,9 +121,17 @@ namespace SpaceInvaders_1._0
                 CreateShot();
             }
 
+            Random random = new Random();
+
+            if (random.Next(100) == 0)
+            {
+                game.FireInvaderShots();
+            }
+
             game.MoveAllInvaders();
             game.FireShots();
             game.CheckShotInvaderCollision();
+            game.CheckShotPlayerCollision();
             scoreLabel.Text = "Score: " + game.Score.ToString();
             livesLabel.Text = "Lives: " + game.Lives.ToString();
 

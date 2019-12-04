@@ -18,6 +18,7 @@ namespace SpaceInvaders_1._0
         private Random random;
         private List<Invader> invaders = new List<Invader>();
         private List<Shot> playerShots = new List<Shot>();
+        private List<Shot> invaderShots = new List<Shot>();
         private Parameters.Direction invaderDirection = Parameters.Direction.Right;
         private Parameters.Direction initialInvaderDirection;
         private int score;
@@ -27,6 +28,7 @@ namespace SpaceInvaders_1._0
         private bool firstGame = true;
         private bool pause;
         private int level;
+        private int invaderMaxShots = 1;
 
         // constructor of class Game
         public Game(Rectangle boundaries)
@@ -79,6 +81,9 @@ namespace SpaceInvaders_1._0
             {
                 invader.Draw(graphics);
             }
+
+            foreach (Shot shot in invaderShots)
+                shot.Draw(graphics);
         }
 
         // method to use stars.Twinkle method
@@ -119,31 +124,19 @@ namespace SpaceInvaders_1._0
 
         public void FireShots()
         {
-            List<Shot> newPlayerShots = new List<Shot>();
-            foreach (Shot shot in playerShots)
+            for(int i = playerShots.Count() - 1; i >= 0; i--)
             {
-                shot.Move();
-                if (shot.RemoveShotFlag == false)
-                {
-                    newPlayerShots.Add(shot);
-                }
+                playerShots[i].Move();
+                if (playerShots[i].RemoveShotFlag == true)
+                    playerShots.RemoveAt(i);
             }
 
-            playerShots = newPlayerShots;
-        }
-
-        public void RemoveShots()
-        {
-            List<Shot> newPlayerShots = new List<Shot>();
-            foreach (Shot shot in playerShots)
+            for (int i = invaderShots.Count() - 1; i >= 0; i--)
             {
-                if (shot.RemoveShotFlag == false)
-                {
-                    newPlayerShots.Add(shot);
-                }
+                invaderShots[i].Move();
+                if (invaderShots[i].RemoveShotFlag == true)
+                    invaderShots.RemoveAt(i);
             }
-
-            playerShots = newPlayerShots;
         }
 
         public void GenerateInvaders()
@@ -232,6 +225,22 @@ namespace SpaceInvaders_1._0
             }
         }
 
+        public Point randomInvader()
+        {
+            return invaders[random.Next(invaders.Count())].CenteredLocation;
+        }
+
+        public void FireInvaderShots()
+        {
+            if (invaderShots.Count() >= invaderMaxShots)
+            {
+                return;
+            }
+
+            Shot invaderShot = new Shot(boundaries, Parameters.Direction.Down, randomInvader());
+            invaderShots.Add(invaderShot);
+        }
+
         public void ControlCollisionState()
         {
             foreach(Invader invader in invaders)
@@ -274,13 +283,14 @@ namespace SpaceInvaders_1._0
             if (invaders.Count() <= 0)
             {
                 level++;
+                invaderMaxShots = level;
                 ResetInvaders();
                 GenerateInvaders();
             }
 
             for (int i = 0; i < playerShots.Count; i++)
             {
-                for (int j = invaders.Count() - 1; j >= 0; j--) 
+                for (int j = invaders.Count() - 1; j >= 0; j--)
                 {
                     if (invaders[j].Location.Y + invaders[j].Image.Height >= playerShots[i].Location.Y &&
                         invaders[j].Location.Y <= playerShots[i].Location.Y + Parameters.shotHeight &&
@@ -292,6 +302,25 @@ namespace SpaceInvaders_1._0
                         invaders.RemoveAt(j);
                     }
                 }
+            }
+        }
+        public void CheckShotPlayerCollision()
+        {
+            if (invaderShots.Count == 0)
+            {
+                return;
+            }
+
+            for (int i = 0; i < invaderShots.Count; i++)
+            {
+                if (playerShip.Location.Y + playerShip.Image.Height >= invaderShots[i].Location.Y &&
+                    playerShip.Location.Y <= invaderShots[i].Location.Y + Parameters.shotHeight &&
+                    playerShip.Location.X <= invaderShots[i].Location.X + Parameters.shotWidth &&
+                    playerShip.Location.X + playerShip.Image.Width >= invaderShots[i].Location.X)
+                {
+                    invaderShots[i].RemoveShotFlag = true;
+                    ReduceLife();
+                }             
             }
         }
         public void SaveData(string dataPath)
