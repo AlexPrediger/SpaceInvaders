@@ -123,9 +123,14 @@ namespace SpaceInvaders_1._0
 
             Random random = new Random();
 
-            if (random.Next(100) == 0)
+            if (random.Next(Parameters.likelihoodInvaderShot) == 0)
             {
                 game.FireInvaderShots();
+            }
+
+            if (random.Next(Parameters.likelihoodMotherShip) == 0)
+            {
+                game.CreateMothership();
             }
 
             game.MoveAllInvaders();

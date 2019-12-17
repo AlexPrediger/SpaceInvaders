@@ -27,6 +27,8 @@ namespace SpaceInvaders_1._0
         private bool gameOver = true;
         private bool firstGame = true;
         private bool pause;
+        private bool mothership = false;
+        private Invader mother;
         private int level;
         private int invaderMaxShots = 1;
 
@@ -84,6 +86,11 @@ namespace SpaceInvaders_1._0
 
             foreach (Shot shot in invaderShots)
                 shot.Draw(graphics);
+
+            if (mothership)
+            {
+                mother.Draw(graphics);
+            }
         }
 
         // method to use stars.Twinkle method
@@ -223,6 +230,15 @@ namespace SpaceInvaders_1._0
                 ResetInvaders();
                 GenerateInvaders();
             }
+
+            if (mothership)
+            {
+                mother.Move(Parameters.Direction.Right);
+                if (mother.Location.X >= boundaries.Right || mother.Location.X <= boundaries.Left)
+                {
+                    RemoveMothership();
+                }
+            }
         }
 
         public Point randomInvader()
@@ -301,6 +317,21 @@ namespace SpaceInvaders_1._0
                         score += invaders[j].InvaderScore;
                         invaders.RemoveAt(j);
                     }
+                }
+
+                if (mothership)
+                {
+                    if (mother.Location.Y + mother.Image.Height >= playerShots[i].Location.Y &&
+                       mother.Location.Y <= playerShots[i].Location.Y + Parameters.shotHeight &&
+                       mother.Location.X <= playerShots[i].Location.X + Parameters.shotWidth &&
+                       mother.Location.X + mother.Image.Width >= playerShots[i].Location.X)
+                    {
+                        playerShots[i].RemoveShotFlag = true;
+                        score += mother.InvaderScore;
+                        lives++;
+                        RemoveMothership();
+                    }
+
                 }
             }
         }
@@ -392,6 +423,24 @@ namespace SpaceInvaders_1._0
             bcolor,
             (boundaries.Right / 2) - (stringWidth.Width / 2),
             topLocation);
+        }
+
+        public void CreateMothership()
+        {
+            if (mothership)
+            {
+                return;
+            }
+
+            mother = new Invader(new Point(boundaries.Left, boundaries.Top));
+            mothership = true;
+            //System.Windows.Forms.MessageBox.Show(mother.Image.Width.ToString());
+        }
+
+        public void RemoveMothership()
+        {
+            mothership = false;
+            mother.Image = new Bitmap(40, 40);
         }
 
         public int Score

@@ -25,8 +25,10 @@ namespace SpaceInvaders_1._0
         };
 
         //Form1 Constants
-        public const int   animationTimerInterval = 330;
-        public const int   gameTimerInterval = 10;
+        public const int animationTimerInterval = 330;
+        public const int gameTimerInterval = 10;
+        public const int likelihoodInvaderShot = 100;
+        public const int likelihoodMotherShip = 400;
 
         //Game Constants
         public const int startLives = 3;
@@ -63,5 +65,6 @@ namespace SpaceInvaders_1._0
         public const int satelliteScore = 15;
         public const int spaceshipScore = 10;
         public const int starScore = 5;
+        public const int motherScore = 25;
     }
 }

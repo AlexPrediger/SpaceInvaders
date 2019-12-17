@@ -20,7 +20,9 @@ namespace SpaceInvaders_1._0
         }
         public Invader(Point location) : base(location)
         {
-            Image = Properties.Resources.bug1;
+            Image = Properties.Resources.mother;
+            Image = new Bitmap(Image, new Size(40, 40));
+            invaderScore = Parameters.motherScore;
             Location = location;
         }
 
